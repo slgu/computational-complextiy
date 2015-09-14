@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{1em}\rlap{#1}}
+\title{Homework 1st for Computational Complextiy}
+\author{Shenlong Gu}
+\date{sg3301@columbia.edu, 14, September 2015}
+\begin{document}
+\maketitle
+\part{}
+We make some assumptions, turning machine M1 decides language L and turning machine M2 decides language L' \\
+\def \mf {$M_{1}$}
+\def \ms {$M_{2}$}
+\def \mt {$M^{'}$}
+\def \Lt {$L^{'}$}
+\begin{enumerate}[a)]
+\item  {\bf union} \\
+        We give a turning machine \mt, which works as follows. \\
+        For a given string $l$,\\ 
+        Simulate $l$ on \mf{}, \\ 
+        if \mf{} accepts $l$: \\ 
+        \itab{} \tab{\mt{} accepts $l$.} \\ 
+        else: \\
+        \itab{} \tab{simulate $l$ on \ms{}.} \\
+        \itab{} \tab{if \ms{} accepts $l$:} \\
+        \itab{} \tab{} \tab{\mt{} accepts $l$.} \\
+        \itab{} \tab{else} \\
+        \itab{} \tab{} \tab{\mt{} rejects $l$.} \\ 
+        We can find \mt{} decides the language union of $L$ and $L^{'}$, so union operation is closed for two decidable languages.
+
+\item {\bf concatenation} \\ 
+        We give a turning machine \mt{}, which works as follows. \\
+		For a give string $l$ with length n. \\
+		We enumerates $i$ from 0 -> $n$ to generate $n + 1$ pairs $(i, n - i)$ \\
+        For each pair$(i, n - i)$:\\ 
+        \itab{} \tab{we simulate $l[0:i]$ on machine \mf{} and $l[i:n]$ on machine \ms{}} \\
+        \itab{} \tab{if \mf{} accepts $l[0:i]$ and \ms{} accepts $l[i:n]$} \\
+        \itab{} \tab{} \tab{\mt{} accepts $l$} \\
+        \itab{} \tab{else} \\
+        \itab{} \tab{} \tab{continue} \\
+        End \\
+        \mt{} rejects $l$. (because after enumerating each pair, we can not find a solution) \\ 
+        We can find \mt{} decides the language concatenation of $L$ and \Lt{}, so concatenation operation is closed for two decidable languages. 
+
+\item {\bf complementation} \\ 
+        We give a turning machine \mt{}, which works as follows: \\
+        For a given string $l$, \\ 
+        simulate l on \mf{}.\\
+        if \mf{} accepts $l$:\\
+        \itab{} \tab{\mt{} rejects $l$.}\\
+        else: \\
+        \itab{} \tab{M' accepts $l$.} 
+\item {\bf intersection} \\
+        We give a turning machine \mt{}, which works as follows: \\
+		for a given string $l$, \\ 
+        simulate $l$ on \mf{}, \\ 
+        if \mf{} rejects $l$: \\
+        \itab{} \tab{\mt{} rejects $l$.} \\
+		else: \\
+        \itab{} \tab{simulate $l$ on \ms{},}\\
+        \itab{} \tab{if \ms{} rejects $l$:} \\
+        \itab{} \tab{} \tab{\mt{} rejects $l$.} \\
+        \itab{} \tab{else:} \\ 
+        \itab{} \tab{} \tab{\mt{} accepts $l$.} \\
+        We can find \mt{} decides the language intersection of $L$ and \Lt{}, and intersection operation is closed for two decidable languages.
+\end{enumerate}
+\part{}
+\end{document}
