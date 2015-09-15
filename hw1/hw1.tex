@@ -9,11 +9,11 @@
 \begin{document}
 \maketitle
 \part{}
-We make some assumptions, turning machine M1 decides language L and turning machine M2 decides language L' \\
 \def \mf {$M_{1}$}
 \def \ms {$M_{2}$}
 \def \mt {$M^{'}$}
 \def \Lt {$L^{'}$}
+We make some assumptions, turning machine \mf{} decides language $L$ and turning machine \ms{} decides language \Lt{}  \\
 \begin{enumerate}[a)]
 \item  {\bf union} \\
         We give a turning machine \mt, which works as follows. \\
@@ -66,4 +66,44 @@ We make some assumptions, turning machine M1 decides language L and turning mach
         We can find \mt{} decides the language intersection of $L$ and \Lt{}, and intersection operation is closed for two decidable languages.
 \end{enumerate}
 \part{}
+    We will prove for any lanauge which can be decided by an original turning machine can be decided by a new designed turning machine
+    and for any language which can be decided by the new designed turning machine can be decided by an original turning machine.
+\begin{enumerate}[a)]
+\item {\bf First} \\
+    For a language which can be decided by an orignal turning machine \mf{}, we can invents a new designed turning machine \ms{} which works as follows: \\
+    We add one more character into the character sets to set it to the left of the start point of input( just like a left-end),
+    then we use the same state change function as \mf{} does, (just the left end is replaced by the new character), obviously this new designed turning machine \ms{} decides
+    the same language as \mf{} does.
+\item {\bf Second} \\
+    For a language which can be decided by a new designed turning machine \mf{}, we can design an original turning machine \ms{} as follows:  \\
+    Three are conditions below. \\ 
+    1.\mf{} scans in the range[left, right] \\ 
+        \ms{} has the same state change as \mf{} does including state change and character write \\
+    2.\mf{} moves from rightmost to the right of rightmost(which means go outside rightmost) \\
+        \ms{} moves right to the right of rightmost of the input \\
+    3.\mf{} moves left/right and in the range[right + 1, ++] \\
+        everytime \mf{} moves one place left/right, \ms{} moves two places left/right, and do similar state change. \\ 
+    4.\mf{} moves from the right + 1 position  left to the rightmost of the input \\
+        \ms{} moves left one place to the rightmost of the input \\ 
+    5.\mf{} moves from letmost to the left of leftmost(which means go outside leftmost) \\
+        \ms{} moves to the rightmost of the input and moves two places right. \\
+    6.\mf{} moves left/right and in the range[--, left - 1] \\
+        everytime \mf{} moves one place left/right, \ms{} moves two places right/left, and do similar state change. \\ 
+    7.\mf{} moves from the left - 1 position right to the leftmost of the input \\
+        \ms{} moves to the leftmost of the input \\
+
+    All steps above are just cursors change when an input runs in the \mf{} and \ms{}. \\
+    In the actual operation, we can set one more characters to tag the rightmost, and the core idea is the following:
+    First, We can see the difference is that the new-designed turning machine has two direction infinite tapes, however, original turning machine has only one.
+    But we can extend the original turning machine to change it to "have two direction tapes", we use rightmost 1, 3, 5, 7, 9 ...2n + 1 positions to correspond to
+    (count) the right 1,2,3...n positions, use rightmost 2, 4, 6, 8, .... 2n positions to correspond to the left, 1, 2, 3....n positions. And we do similar state changes
+    in the \ms{} as \mf{} does, so we can see For a language which can be decided by a new designed turning machine \mf{}, we can design an original turning machine \ms{}.
+    So we can see the power of these two turning machines is the same, can decide the same class of languages.
+\end{enumerate}
+\part{}
+First, we will prove that a write-twice turning machine has the same power as the origin turning machine. For each of the write operation in the origin turning machine,
+we copy the entire tape used right to a new unused portion and marked the tape copied(then we know the head of new tape because the left of it has been marked, and the whole used tape has been copied), so a cell in the tape needs only to be marked and writen (write-twice most)), for the position to be updated, we marked it first, and when copying, if it is already marked, we update the target cell, othervise copy the cell and mark this cell.
+so a write-twice turning machine has the same power as the origin turning machine. \\
+Second, we will prove write-once turning machine can work the same. To marked a cell, we split this cell into two parts, which means we use two cells, one to record character (can be update at most once), and a flag cell(marked or unmarked, can be updated only once), so this write-once turning machine works as the same logic as the write-twice turning machine (but each cell will be written at most once). \\
+So in total, write-once turning machines can decide the same class of languages as the original turning machines.
 \end{document}
