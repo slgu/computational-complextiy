@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{1em}\rlap{#1}}
+\title{Homework 2 for Intro to Computational Complextiy}
+\author{Shenlong Gu}
+\date{917-544-8927, sg3301@columbia.edu, 27, September 2015}
+\begin{document}
+\maketitle
+\part{}
+\def \vf {$V_{1}(x,c)$}
+\def \vs {$V_{2}(x,c)$}
+\def \v {$V(x,c)$}
+\def \mf {$M_{1}$}
+\def \ms {$M_{2}$}
+\def \lf {$L_{1}$}
+\def \ls {$L_{2}$}
+    We assumes a Non-DTM \mf{} decides the language \lf, and 
+    a Non-DTM \mf{} decides the language \ls. \\
+    Let \vf{} be the verifier for \mf{} and \vs{} be the verifier
+    for \ms{}.
+\begin{enumerate}
+\item {\bf union} \\
+    We will construct a poly-time \v{} for the language, the union of 
+    \lf{} and \ls{} to solve this problem.\\
+    for any input $x$, given a stratage input string $c$, let \v{} = 1 iff \vf{} = 1 and \vs{} = 1. \\
+    It is easy to see \v{} is the verifier which runs in polynomial time 
+    given input $x$ and $c$ and \v{} is the verifier for the language, the
+    union of \lf{} and \ls{}. So NP is closes under union operation. 
+\item {\bf concatenation} \\
+    We will construct a poly-time \v{} for the language, the union of 
+    \lf{} and \ls{} to solve this problem.\\
+    for any input $x$, the stratage input $c$ which is the union-encoding of the stratage $c_{1}$ for \vf{}, the stratage $c_{2}$ for \vs{}. \\
+    \v{} works as the follows, creates $n + 1$ pairs, $(i, n - i), 0 \leq{} i \leq n$. Decode $c$ into $c_{1}$ and $c_{2}$ \\
+    foreach pair $(i, n - i)$: \\
+    \itab{} \tab{if {$V_{1}(x[0:i],c_{1})$} == 1 and {$V_{2}(x[i:n],c_{2})$} == 1:}\\
+    \itab{} \tab{} \tab{\v{} = 1, accepts} \\
+    end
+    \v{} = 0, rejects. (Because no pairs work given the stratage $c_{1}$ 
+    and $c_{2}$. \\
+    It is easy to see \v{} is the verifier which runs in polynomial time 
+    given input $x$ and $c$ and \v{} is the verifier for the language, concatenation of \lf{} and \ls{}. So NP is closes under concatenation operation. 
+\item {\bf star} \\
+    We will construct a poly-time \v{} for the language, the union of 
+    \lf{} and \ls{} to solve this problem.\\
+    Given an input $x$, we let $c$ to encode a segmentation of input $x$ into 
+    $x_{1},x_{2},...x_{k}$, and a stratage of \vf{} to these $k$ segmentation $c_{1},c_{2},...c_{k}$. \\
+    Then, \v{} works as follows: \\
+    decode $c$ first, if $c$ can not be decoded, rejects it. \\
+    for $i = 0$ to $k$: \\
+    \itab{} \tab{if $V_{1}(x_{i},c_{i})$ == 1:} \\
+    \itab{} \tab{} \tab{\v{} = 1, accepts} \\
+    end \\
+    \v{} = 0, rejects.\\
+    It is easy to see \v{} is the verifier which runs in polynomial time 
+    given input $x$ and $c$ and \v{} is the verifier for the language, star of \lf{}. So NP is closes under star operation. 
+\end{enumerate} 
+Then to prove $G$ and $H$ isomorphic. Given an input $x$ with length $n$, we encode a permutation of $n$ which is a node mapping from $G$ and $H$, 
+we give a verifier \v{} given the input $x$ and encoding mapping $c$, it is easy to judge if two maps are isomorphic under this mapping in poly-time 
+(just check if each mapping edge exists or doesn't exist in two graphs).
+\part{}
+\end{document}

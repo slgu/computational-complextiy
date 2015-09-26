@@ -4,9 +4,9 @@
 \usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
 \newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
 \newcommand{\tab}[1]{\hspace{1em}\rlap{#1}}
-\title{Homework 1 for Intro to Computational Complextiy}
+\title{Homework 1st for Computational Complextiy}
 \author{Shenlong Gu}
-\date{917-544-8927, sg3301@columbia.edu, 14, September 2015}
+\date{sg3301@columbia.edu, 14, September 2015}
 \begin{document}
 \maketitle
 \part{}
@@ -47,7 +47,7 @@ We make some assumptions, turning machine \mf{} decides language $L$ and turning
 \item {\bf complementation} \\ 
         We give a turning machine \mt{}, which works as follows: \\
         For a given string $l$, \\ 
-        simulate $l$ on \mf{}.\\
+        simulate l on \mf{}.\\
         if \mf{} accepts $l$:\\
         \itab{} \tab{\mt{} rejects $l$.}\\
         else: \\
@@ -117,7 +117,7 @@ we can split the input to $x, z$. At the beginning, the head is in the left of$x
 with a state $q$, and within $z$ this machine will do a series of operation, and the machine will end or the head will go back to $x$ with a state $p$. This loop will continue until the machine ends.\\
 We can see $x$ as a component, it will accept a state $p$ from right or start from left, and do a series of operation finally the machine will stop or will emit a state $q$ to the right.\\
 So we can construct a state-change function: T$(p)$ = $q$ specified by input $x$, which means $x$ will accept from right by a state $p$ and emit a state $q$ to right, but there are spcial output, T$(p)$ = $accept$, T$(p)$ = $reject$ which means input a state $p$, the machine will reject or accept, there are also special input T$(start)$ = $q$, which means when the machine starts, if the head emits $x$, it will emit a state $q$. \\
-Then we can easily verify that if two inputs $x, y$ with same function T will be equivalent to each other, because for a input $z$ if $xz$ $\in$ $L$, $yz$ must $\in$ to $L$, because with the same state from $z$, $x, y$ will emit same state to $z$, all the machine will end with same results for $x$ or $y$. \\  
+Then we can easily if two inputs $x, y$ with same function T will be equivalent to each other, because for a input $z$ if $xz$ $\in$ $L$, $yz$ must $\in$ to $L$, because with the same state from $z$, $x, y$ will emit same state to $z$, all the machine will end with same results for $x$ or $y$. \\  
 And it is clear, there are just finite function T. If the state number is $k$, the number of function T is almost $k^{k}$, a finite number. That's to say,
 the number of equivalent classes for language $L$ is finite, and according to Myhill-Nerode Theorem, language $L$ is regular languages, so this modified turning machine can only decide regular languages. 
 \part{}
@@ -126,14 +126,7 @@ the number of equivalent classes for language $L$ is finite, and according to My
     Now we can construct a turning machine $H$, given an encoding of a turning machine $M_{1}$, input $w$, we constructs a turning machine $T(M_{1}, w)$, when input is empty, this turning machine $T$ will simulate w in $M_{1}$, Now, we can use $D$ to judge if $T(M_{1},w)$ will halt on empty string, if it halts, $H$ accepts, otherwises, rejects. We see $H$ can solve the halting problem which is undecidable, so we get a contradiction, so the problem above can not be decided. 
 \item Assume, we can construct a machine $D$, given an encoding of a turning machine $M$, it accepts when $M$ will halt on some string, rejects if $M$ won't halt on any string.
     Now we can construct a turning machine $H$, given an encoding of a turning machine $M_{1}$, input $w$, we constructs a turning machine $T(M_{1}, w)$, given any input, this turning machine $T$ will simulate w in $M_{1}$, Now, we can use $D$ to judge if $T(M_{1},w)$ will halt some string, if it halts, $H$ accepts, otherwises, rejects. Now we can see $H$ accepts iff $D$ accepts $T(M_{1},w)$ iff $T(M_{1},w)$ will halt on some string iff $W_{1}$ on $w$, so $H$ solves the halting problem which is undecidable, so we get a contradiction, so the problem above can not be decided. 
-\item Assume, we can construct a machine $D$, given an encoding of a turning machine $M$, it accepts when $M$ will contains finite number of strings that make $M$ accepts.
-    Now we can construct a turning machine $H$, given an encoding of a turning machine $M_{1}$, input $w$, we constructs a turning machine $T(M_{1}, w)$, this turning machine $T$ will simulate w in $M_{1}$, if $M_{1}$ halts, accepts. Now, we can use $D$ to judge if $T$ will contains finite number of strings that make $T$ accepts, if it $D$ accepts, $H$ rejects, otherwises, accepts. Now we can see $H$ accepts iff $D$ rejects $T$ iff $T$ contains infinite number of strings that make $T$ accepts iff $W_{1}$ halts on $w$, so $H$ solves the halting problem which is undecidable, so we get a contradiction, so the problem above can not be decided. 
-\item Assume, we can construct a machine $D$, given an encoding of a turning machine $M_{1}$, $M_{2}$, it accepts if $L(M_{1})$ equals $L(M_{2})$, otherwise rejects. \\
-    We construct a machine $F$, accepts given any input. \\
-    Now we can construct a turning machine $H$, given an encoding of a turning machine $M_{1}$, input $w$, we constructs a turning machine $T(M_{1}, w)$, this turning machine $T$ will simulate w in $M_{1}$, if $M_{1}$ halts, accepts. 
-    Now, we can use $D$ to judge if $L(T)$ equals $L(F)$, if it $D$ accepts, $H$ accpets, otherwises, rejects. Now we can see $H$ accepts iff $D$ accepts $T$ iff $T$ decides langauge $L$ containing all strings constructed from the alphabet iff $W_{1}$ halts on $w$, so $H$ solves the halting problem which is undecidable, so we get a contradiction, so the problem above can not be decided. 
+\item Assume, we can construct a machine $D$, given an encoding of a turning machine $M$, it accepts when $M$ will halt on some string, rejects if $M$ won't halt on any string.
+    Now we can construct a turning machine $H$, given an encoding of a turning machine $M_{1}$, input $w$, we constructs a turning machine $T(M_{1}, w)$, this turning machine $T$ will simulate w in $M_{1}$, if $M_{1}$ stops, accepts. Now, we can use $D$ to judge if $T$ will decide language $L$ with finite number of strings, if it $D$ accepts, $H$ rejects, otherwises, accepts. Now we can see $H$ accepts iff $D$ rejects $T$ iff $T$ decides language $L$ with infinite number of strings iff $W_{1}$ halts on $w$, so $H$ solves the halting problem which is undecidable, so we get a contradiction, so the problem above can not be decided. 
 \end{enumerate}
-\part{}
-First, assume $L$ is recursive, then we generates an enumerator, we enumerates strings in length increase and, in the same length, in lexicographical order, for each string $w$, we use $L$ to judge if $L$ accepts $w$, if $L$ accepts $w$, print $w$. Then we gets an enumerator to enumerate $L$ with length-increasing. \\
-Second, assume that we can enumerates $L$ in lenght-increasing fashion. Then we constructs a turning machine $M$, for each input $w$ with length $n$, we starts the enumerator, if the output string equals $w$, then stop the enumerator, $M$ accepts $w$, if the enumerator bgoes to output string with length > $n$, we stops enumerator, $M$ rejects $w$.
 \end{document}
