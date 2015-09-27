@@ -61,4 +61,25 @@ Then to prove $G$ and $H$ isomorphic. Given an input $x$ with length $n$, we enc
 we give a verifier \v{} given the input $x$ and encoding mapping $c$, it is easy to judge if two maps are isomorphic under this mapping in poly-time 
 (just check if each mapping edge exists or doesn't exist in two graphs).
 \part{}
+    First, we will show that if a graph is bipartite, then it can not have a cycle containing an odd number of nodes. 
+    Assume there is a such cycle the bipartite, $n_{1}$, $n_{2}$,.....$n_{2*k+1}$. We color the nodes into two part(blue and red)
+    . if $n_{1}$ is red, $n_{2}$ is blue, then $n_{2*k+1}$ will be red the same as $n_{1}$, and there is an edge between $n_{1}$ and $n_{2*k+1}$,
+    so there comes a contradictory. \\ \\
+    Second, if there is no such cycle, we will show it is a bipartite. We also color the node, we randomly selects a node, and gives a color (for example, red),
+    We traverse the edge from this node using dfs or bfs, everytime there is an edge between two nodes, we color the child node with a opposite color from its parent, when there is a back edge. Because there is no cycyle with an odd number of nodes, this node will not result in a contradictory with its ancestor, so we can color all nodes without contradictory, so it is a bipartite. \\ \\
+    Third, we will show bipartite problem $\in$ NL. \\ 
+    We change the bipartite judging problem into a existing problem. As proved above, we can change a bipartite judging problem by deciding that there is no cycle containing odd number nodes.\\
+    Then we think about the complement problem(because NL equals CO-NL): how to decide that if there is a cycle containing odd number nodes. \\
+    To use NDTM to solve this problem: \\
+    First, we nondeterministicly selects a start node, $s$, and set a next node $t$ to nondeterministicly be a child of $s$, and set a counter to be zero .\\
+    while counter $\leq$ $n$:\\
+    ($n$ is total number of nodes, because the length of the cycle can not exceed $n$) \\
+    \itab{} \tab{if $t$ equals $s$:} \\
+    \tab{} \tab{} \tab{if counter is odd:}\\
+    \tab{} \tab{} \tab{} \tab{accepts it}\\
+    \tab{} \tab{} \tab{else:}\\
+    \tab{} \tab{} \tab{} \tab{rejects it}\\
+    \itab{} \tab{We nondeterministicly set $t$ to be a child of $t$,(if there is no child, we rejects)}\\
+    \itab{} \tab{counter = counter + 1} \\ 
+    We see that this NDTM decides the problem (odd-number-nodes cycle existing problem), and the space it uses is just start node number, next node number, counter which cost just logarithmic space. So bipartite judging problem $\in$ NL. 
 \end{document}
