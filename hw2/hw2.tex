@@ -82,4 +82,12 @@ we give a verifier \v{} given the input $x$ and encoding mapping $c$, it is easy
     \itab{} \tab{We nondeterministicly set $t$ to be a child of $t$,(if there is no child, we rejects)}\\
     \itab{} \tab{counter = counter + 1} \\ 
     We see that this NDTM decides the problem (odd-number-nodes cycle existing problem), and the space it uses is just start node number, next node number, counter which cost just logarithmic space. So bipartite judging problem $\in$ NL. 
+\part{}
+First we assume P = NP, if we can show NEXPTIME = EXPTIME, we get the origin problem proved. \\
+Give a language $L$ in NTIME($2^{n^{k}}$), we will prove it in some EXPTIME. \\
+We construct a $L^{'}$:pad(L, $2^{n^{k}}$), we can easily prove it in NP and because P = NP, so $L^{'}$ in poly-time, and because we can decide 
+$L^{'}$ in P, we can decide $L$ in EXPTIME($2^{n^{k}}$), (just padding $L$ to be $L^{'}$ and simulate $L^{'}$ in poly-time which is some EXPTIME relative to $L$, so we can show NEXPTIME = EXPTIME, so the origin problem is proved.
+\part{}
+We first assume P = SPACE(n), and we can get a contradiction. \\
+Given a language $L$ in SPACE($n^{2}$), we construct a language $L^{'}$: pad($L$, $n^{2}$). It is easy to show $L^{'}$ in SPACE(n), and because P = SPACE(n), we can solve $L^{'}$ in poly-time which means we can solve $L$ in poly-time (just use 0($n^{2}$) to pad, use 0($n^{2*c}$) to decide $L^{'}$), so we can find SPACE($n^{2}$) $\subset$ P, which means SPACE($n^{2}$) $\subset$ SPACE(n), which causes a contradiction by space hierarchy theorem. 
 \end{document}
