@@ -90,4 +90,9 @@ $L^{'}$ in P, we can decide $L$ in EXPTIME($2^{n^{k}}$), (just padding $L$ to be
 \part{}
 We first assume P = SPACE(n), and we can get a contradiction. \\
 Given a language $L$ in SPACE($n^{2}$), we construct a language $L^{'}$: pad($L$, $n^{2}$). It is easy to show $L^{'}$ in SPACE(n), and because P = SPACE(n), we can solve $L^{'}$ in poly-time which means we can solve $L$ in poly-time (just use 0($n^{2}$) to pad, use 0($n^{2*c}$) to decide $L^{'}$), so we can find SPACE($n^{2}$) $\subset$ P, which means SPACE($n^{2}$) $\subset$ SPACE(n), which causes a contradiction by space hierarchy theorem. 
+\part{}
+First, we asssume a turning machine with a read-only input tape uses space $s(n)$ that is smaller than $c log log n$, then we show that it will uses constant space. \\
+We consider a configuration worker head is in $j$ position, the status is $q$, the content in worker tape is $txt$, we will show for each input position $i$ in the input text, such configurations will at most have $nn$ = |Q| * ($|\sum|^{s(n)}$) * $s(n)$ = O($2^log(s(n))$) \\ 
+Then we consider a sequence which means in the execution of $M$, the input header may run into position $i$ in the input tape for several times and we get a sequence of configurations above. We calculate for different sequences at position $i$ may have (we can not get into same configuration for twice, thus we will not halt), $\sum\limits_{i=1}^{nn} nn*(nn-1)*(nn-2)*...(nn-i+1)$ < $nn^{nn}$ = O($nn^{nn}$) < O($2^{2^{2 * s(n)}}) = O(n),(a linear bound). \\
+
 \end{document}
