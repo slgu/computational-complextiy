@@ -102,4 +102,44 @@ $x$ in $j$ + 1 position with same configuration sequence number $s_{1}$, and the
 Similarly, we can construct $x_{2}$: $a_{1}aa_{2}aa_{4}$ and find that $M$ accepts $x_{2}$ too and $x_{2}$ share the same configuration as $x$ in position $i$, $j$. Now we will see the space usage for $x$, $x_{1}$, $x_{2}$, if $x$ reaches the maximum space usage $s(x)$ in the area, $a_{1}a$, $a_{3}aa_{4}$, 
 because of the same configuration sequence in $i$, $k$, we can find $x_{1}$ will at a time reache a space usage $s(x)$, so $s(x_{1})$ $\geq$ $s(x)$. And if $x$ reaches the maximum space usage $s(x)$ in $a_{2}a$, because of the same configuration in position $j$ of $x$ and $x_{2}$, we can find $x_{2}$ will at a time reaches a space usage $s(x)$, so $s(x_{2})$ $\geq$ $s(x)$. So we can know there is a shorter sequence that uses $\geq$ $s(x)$ space. So we get a contradiction and solve this problem. \\
 To prove the language $L$: $b(1)$\#$b(2)$\#$b(3)$...\#$b(k)$ is decided by a turning machine requires space $O(loglog(n))$, we just prove it starts at 000..0 and ends at 111...1 and each string is one-increment of last string, to check this, we need a counter to compare each digit of $i$ and $i + 1$, the lenght of binary representation of $i$ is $O(log(n))$, so the counter just costs the space usage $O(log(log(n))$. 
+\part{}
+\begin{enumerate}
+\item Prove PSACE
+We can use a recursion algorithm to solve this problem. \\
+Because the graph won't change, just c and m position change \\
+We construct two functions as below: \\
+WinCat(c, m): \\
+\itab{} \tab{set visit[c] = true} \\
+\itab{} \tab{for every adjacent node i c has not visited:(return false if no such node)}\\
+\itab{} \tab{} \tab{if i == m:}\\
+\itab{} \tab{} \tab{} \tab{return true (catch the mouse}\\
+\itab{} \tab{} \tab{else if NoloseMouse(i, m) is false:} \\ 
+\itab{} \tab{} \tab{} \tab{return true} \\
+\itab{} \tab{set visit[c] = false}\\
+\itab{} \tab{return false}
+
+NoloseMouse(c, m): \\
+\itab{} \tab{if m == h:}\\
+\itab{} \tab{} \tab{return true} \\
+\itab{} \tab{for every adjacent node i of m which is not c: (return false if no such node)}\\
+\itab{} \tab{} \tab{if i == h:} \\
+\itab{} \tab{} \tab{} \tab{return true}\\ 
+\itab{} \tab{} \tab{if WinCat(c, i) is false:}\\
+\itab{} \tab{} \tab{} \tab{return true} \\
+\itab{} \tab{return false(no such winning step)}\\
+And HAPPY-CAT accepts input iff WinCat(c, m) is true, and because of the stack depth is at most $n$ which is the number of the vertexs. \\
+And in each recursion we just use $O(log(n))$ space, so the total space usage is P, so the problem belongs to PSPACE.\\
+\item Prove P 
+We can find that if there exists a cycle of $G$, the mouse won't lose, at most draw, because the mouse just needs to run along the cycle, and the cat 
+can not catch the mouse. \\
+So we can use the algorithm dfs with visit flag to judge if a undirected graph has a cycle or not in time $O(n)$. \\
+Then if there is a cycle, this graph won't be accepted by HAPPY-CAT unless c = m at the initial time. \\
+If it has no cycle, then we use dijistra algorithm to calculate the shortest path with origin $h$, \\
+if path[h][c] >= path[h][m]:\\
+\itab{} \tab{return true}\\
+\itab{} \tab{(because cat can go to the $h$ first, and because it is a tree, the mouse must be caught by the cat)}\\
+else:\\
+\itab{} \tab{return false (because the mouse can get to the hole first)} \\
+We can see this algorithm is obviously in P. (cycle judge in P, shortest path algorithm in P)
+\end{enumerate}
 \end{document}
