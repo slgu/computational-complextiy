@@ -2,6 +2,7 @@
 \usepackage{enumerate}
 \usepackage[T1]{fontenc}
 \usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{graphicx}
 \newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
 \newcommand{\tab}[1]{\hspace{1em}\rlap{#1}}
 \title{Homework 3 for Intro to Computational Complextiy}
@@ -30,64 +31,9 @@
     Because we know vertex cover problem is in NPC, we will reduce vertex cover problem to dominating set problem to prove dominating set problem is in NPC. \\
     Given a graph $G(V,E)$, we will construct a new graph $G'$, for each edge $e$, $(v_{i},v_{j})$, we add a new vertex $v_{k}$ and two edges, $(v_{k},v_{i})$ and $(v_{k},v_{j})$ and we get the new graph $G'$. (The reason why we do it is to change edge cover problem to vertex cover problem). \\
     We will then prove two problems are equivalent. First if there is a vertex cover with size $\leq$ $k$, obviously, these $k$ vertexes will form a dominating set, (the reason is that all edges is covered which means these $k$ nodes will sure connect to other nodes). Second, we will prove if there is a dominating sets with size $\leq$ $k$, then there is a vertex cover with nodes size $\leq$ $k$. We can see that we don't need to use the nodes newly added in graph $G'$, because we can easily replace $v_{k}$ by $v_{i}$ or $v_{j}$, then we can see if $k$ nodes which form the dominating sets will be the solution for vertex cover problem. Imagine, if there is an edge with two vertexes not in the dominating set, which means the corresponding vertex $v_{k}$ won't be connected by the dominating set and we get a contradictory so we can construct a vertex cover sets by the dominating set, so the dominating set problem belongs to NPC.
-\part{}
-First we assume P = NP, if we can show NEXPTIME = EXPTIME, we get the origin problem proved. \\
-Give a language $L$ in NTIME($2^{n^{k}}$), we will prove it in some EXPTIME. \\
-We construct a $L^{'}$:pad(L, $2^{n^{k}}$), we can easily prove it in NP and because P = NP, so $L^{'}$ in poly-time, and because we can decide 
-$L^{'}$ in P, we can decide $L$ in EXPTIME($2^{n^{k}}$), (just padding $L$ to be $L^{'}$ and simulate $L^{'}$ in poly-time which is some EXPTIME relative to $L$, so we can show NEXPTIME = EXPTIME, so the origin problem is proved.
-\part{}
-We first assume P = SPACE(n), and we can get a contradiction. \\
-Given a language $L$ in SPACE($n^{2}$), we construct a language $L^{'}$: pad($L$, $n^{2}$). It is easy to show $L^{'}$ in SPACE(n), and because P = SPACE(n), we can solve $L^{'}$ in poly-time which means we can solve $L$ in poly-time (just use 0($n^{2}$) to pad, use 0($n^{2*c}$) to decide $L^{'}$), so we can find SPACE($n^{2}$) $\subset$ P, which means SPACE($n^{2}$) $\subset$ SPACE(n), which causes a contradiction by space hierarchy theorem. 
-\part{}
-First, we asssume a turning machine with a read-only input tape uses space $s(n)$ that is smaller than $c log log n$, then we show that it will uses constant space. \\
-We consider a configuration worker head is in $j$ position, the status is $q$, the content in worker tape is $txt$, we will show for each input position $i$ in the input text, such configurations will at most have $nn$ = |Q| * ($|\sum|^{s(n)}$) * $s(n)$ = O($2^log(s(n))$) \\ 
-Then we consider a sequence which means in the execution of $M$, the input header may run into position $i$ in the input tape for several times and we get a sequence of configurations above. We calculate for different sequences at position $i$ may have (we can not get into same configuration for twice, thus we will not halt), $\sum\limits_{i=1}^{nn} nn*(nn-1)*(nn-2)*...(nn-i+1)$ < O($nn^{nn}$) < O($2^{2^{2 * s(n)}}$) = O(n),(a linear bound). \\
-O(n) means for a $n$ $\geq$ a given $n_{0}$, $s(n)$ <= $n / 3$. And we assume there exists a $n_{1}$ where $s(n_{1})$  $>$ $s(i)$ for $i$ $\leq$ $n_{1}$. Other wise we can easily conduct every $s(i)$ will equals $s(n_{0})$ which means space usage will be a constant. And we get a minimum $n_{1}$ satisfying the above requirement. We then want to get a contradiction to solve the problem. \\
-We get a input $x$ with length $n_{1}$ that is accepted by $M$. And because that the total configuration sequences is less than $n_{1}$ / 3, we can easily use the drawer principle to get that there exists $i$,$j$,$k$ that have the same configuration sequence. Let $x$ be $a_{1}aa_{2}aa_{3}aa_{4}$  
-in a format $a_{1}aa_{2}aa_{3}$. where $a$ is the symbol at $i$, $j$, $k$ and $a_{i}$, $i$ = 1,2,3,4 is a sequence. We construct $x_{1}$,$a_{1}aa_{3}aa_{4}$, we will compare the execution of $x$ and $x_{1}$ in $M$: \\
-$M$ simulates same in $a{1}a$ until it is at position $i$ and heads right, and what $M$ simulates in $x_{1}$ in $i$ + 1 position is same as $M$ simulates
-$x$ in $j$ + 1 position with same configuration sequence number $s_{1}$, and then when it hits position $k$ and heads right, $M$ will simulate same for two strings, and then when it is at position $k$ and heads left, it is with a configuration $s_{2}$, and loops as same like above, we can find for position $i$,$k$, it goes for the same configuration sequence for $x$ and $x_{1}$ and $M$ accepts $x_{1}$ too. \\
-Similarly, we can construct $x_{2}$: $a_{1}aa_{2}aa_{4}$ and find that $M$ accepts $x_{2}$ too and $x_{2}$ share the same configuration as $x$ in position $i$, $j$. Now we will see the space usage for $x$, $x_{1}$, $x_{2}$, if $x$ reaches the maximum space usage $s(x)$ in the area, $a_{1}a$, $a_{3}aa_{4}$, 
-because of the same configuration sequence in $i$, $k$, we can find $x_{1}$ will at a time reache a space usage $s(x)$, so $s(x_{1})$ $\geq$ $s(x)$. And if $x$ reaches the maximum space usage $s(x)$ in $a_{2}a$, because of the same configuration in position $j$ of $x$ and $x_{2}$, we can find $x_{2}$ will at a time reaches a space usage $s(x)$, so $s(x_{2})$ $\geq$ $s(x)$. So we can know there is a shorter sequence that uses $\geq$ $s(x)$ space. So we get a contradiction and solve this problem. \\
-To prove the language $L$: $b(1)$\#$b(2)$\#$b(3)$...\#$b(k)$ is decided by a turning machine requires space $O(loglog(n))$, we just prove it starts at 000..0 and ends at 111...1 and each string is one-increment of last string, to check this, we need a counter to compare each digit of $i$ and $i + 1$, the lenght of binary representation of $i$ is $O(log(n))$, so the counter just costs the space usage $O(log(log(n))$. 
-\part{}
-\begin{enumerate}
-\item Prove PSACE
-We can use a recursion algorithm to solve this problem. \\
-Because the graph won't change, just c and m position change \\
-We construct two functions as below: \\
-WinCat(c, m): \\
-\itab{} \tab{set visit[c] = true} \\
-\itab{} \tab{for every adjacent node i c has not visited:(return false if no such node)}\\
-\itab{} \tab{} \tab{if i == m:}\\
-\itab{} \tab{} \tab{} \tab{return true (catch the mouse}\\
-\itab{} \tab{} \tab{else if NoloseMouse(i, m) is false:} \\ 
-\itab{} \tab{} \tab{} \tab{return true} \\
-\itab{} \tab{set visit[c] = false}\\
-\itab{} \tab{return false}
-
-NoloseMouse(c, m): \\
-\itab{} \tab{if m == h:}\\
-\itab{} \tab{} \tab{return true} \\
-\itab{} \tab{for every adjacent node i of m which is not c: (return false if no such node)}\\
-\itab{} \tab{} \tab{if i == h:} \\
-\itab{} \tab{} \tab{} \tab{return true}\\ 
-\itab{} \tab{} \tab{if WinCat(c, i) is false:}\\
-\itab{} \tab{} \tab{} \tab{return true} \\
-\itab{} \tab{return false(no such winning step)}\\
-And HAPPY-CAT accepts input iff WinCat(c, m) is true, and because of the stack depth is at most $n$ which is the number of the vertexs. \\
-And in each recursion we just use $O(log(n))$ space, so the total space usage is P, so the problem belongs to PSPACE.\\
-\item Prove P 
-We can find that if there exists a cycle of $G$, the mouse won't lose, at most draw, because the mouse just needs to run along the cycle, and the cat 
-can not catch the mouse. \\
-So we can use the algorithm dfs with visit flag to judge if a undirected graph has a cycle or not in time $O(n)$. \\
-Then if there is a cycle, this graph won't be accepted by HAPPY-CAT unless c = m at the initial time. \\
-If it has no cycle, then we use dijistra algorithm to calculate the shortest path with origin $h$, \\
-if path[h][c] >= path[h][m]:\\
-\itab{} \tab{return true}\\
-\itab{} \tab{(because cat can go to the $h$ first, and because it is a tree, the mouse must be caught by the cat)}\\
-else:\\
-\itab{} \tab{return false (because the mouse can get to the hole first)} \\
-We can see this algorithm is obviously in P. (cycle judge in P, shortest path algorithm in P)
-\end{enumerate}
+\part{}\
+    We will prove by reducing from the 3SAT problem. Because a graph is hard to draw, so I take a photo, as shown below: \\
+    \includegraphics[width=5in]{part3}\\
+    As shown in the photo, we map $n$ literals and $m$ clauses into $n+m$ paths. There are two paths for each variables for $s_{1}$..$s_{n}$ which represents true or false of each boolean variable. And there are three paths for each clauses, $s_{n+1}$..$s_{n+m}$. 
+    The example shown in the photo is that the first clause is $\overline{x_{1}}$ $\cup$ $x_{k}$ $\cup$ $x_{n}$. We just construst the graph like this, we can see that for a clause takes a path, for example, $s_{n+1}$ takes the path from $s_{1}$..$t_{1}$, then $s_{1}$ will take the opposite path, otherwise there will be a node-joint. And if there is a assignment satisfying 3SAT, we can construct $n+m$ paths like this, and we can get an assignment satisfying 3SAT if there is $n+m$ paths with node-disjoint in the graph in return. So Disjoint Paths problem belongs to NPC.
 \end{document}
