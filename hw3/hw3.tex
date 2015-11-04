@@ -37,7 +37,11 @@
     As shown in the photo, we map $n$ literals and $m$ clauses into $n+m$ paths. There are two paths for each variables for $s_{1}$..$s_{n}$ which represents true or false of each boolean variable. And there are three paths for each clauses, $s_{n+1}$..$s_{n+m}$. 
     The example shown in the photo is that the first clause is $\overline{x_{1}}$ $\cup$ $x_{k}$ $\cup$ $x_{n}$. We just construst the graph like this, we can see that for a clause takes a path, for example, $s_{n+1}$ takes the path from $s_{1}$..$t_{1}$, then $s_{1}$ will take the opposite path, otherwise there will be a node-joint. And if there is a assignment satisfying 3SAT, we can construct $n+m$ paths like this, and we can get an assignment satisfying 3SAT if there is $n+m$ paths with node-disjoint in the graph in return. So Disjoint Paths problem belongs to NPC.
 \part{}
-    To Be Solved
+    We will prove this problem by reducing from SUBSET-SUM. \\
+    Assume the numbers are $x_{1}$...$x_{n}$ and all $\leq$ 0 and the target sum is $k$. The total sum is $N$. \\
+    We construct a sequence, $4*N$, $2*N$, $2*N-k$, $x_{1}$...$x_{n}$, $N+k$, $2*N$, $4*N$, and bounding length $4*N$, and the target sum can be satisfied iff there is a folding satisfying the bounding length. We can construct the folding as the following picture: \\
+    \includegraphics[width=5in]{part4}\\
+    To see why if two problems are equal, we will look at the first two rigid rods and the last two rigid rods. The position of the four rigid rods is stable to satisfy the bounding length. And the position of the second rigid rod and the position of the one before last rigid rod are the same which means there is a partition of sequence: $2*N-k$, $x_{1}$...$x_{n}$, $N+k$. First the total sum of this sequence is $4*N$, and $2*N-k$ and $N+k$ must belong to two part (otherwise that partition will have at least $3*N$). So a partition sum of sequence $x$ will be $2*N - (2*N-k)$ = $k$, so we get a subset sum of $k$. It is the same in return. So we reduce the SUBSET-SUM to this problem, so this problem belongs to NPC.
 \part{}
     1. First, we look at the problem CLIQUE = {(G,k), there exists a clique of G has at least k vertices}. Because CLIQUE in NP, and P = NP, so CLIQUE in P. Then given a graph, $G$, we just enumerate $i$ from 1 to $n$ ($n$ is the number of nodes in the graph). And obviously there will be a $k_{1}$, for $i$ from 1 to $k$, CLIQUE with input $G$ and $i$ will output "yes" and for $i$ from $k_{1}+1$ to $n$ (if $k_{1}$ equals $n$, this interval will not exist), CLIQUE with input $G$ and $i$ will output "no". So we can compare $k_{1}$ with $k$ to see if this two number is equal. So we can see MAX-CLIQUE can be solved in P and it is easy to find the largest cliques. \\
     2. First, we will prove MAX-CLIQUE in $\Sigma_{2}^{P}$. 
@@ -49,5 +53,6 @@
         So by definition of $V(x, y',z')$, we can see MAX-CLIQUE in $\Sigma_{2}^{P}$. \\
         Then, we will prove MAX-CLIQUE in $NP^{SAT}$. We can just nondeterministiclly select a subset $y'$, if $y'$ is not a clique of $k$, rejects, otherwise, because CLIQUE can be reduced to SAT, we can ask the oracle-SAT a question: whether if there is a clique of G has at least k+1 vertices. If the answer is yes, reject, otherwise accept. So MAX-CLIQUE in $NP^{SAT}$.
 \part{}
-    
+    1. Because NP = $P^{SAT}$, for a language $L$ belongs to co-NP, we can just construct a poly-turning machine $M$ with access to oracle-SAT to decide $\overline{L}$, and we just flip the result of $M$ to get a $M_{1}$ with access to oracle-SAT to decide $L$, so co-NP = $P^{SAT}$ and NP = co-NP. \\
+    2. First, recall another definition of co-NP, $\forall$ configuration $y$, V(x,y) = 1, and for $coNP^{SAT}$, we can act like $NP^{SAT}$ to delay all questions to oracle-SAT to the end of the execut ion of a branch and ask only one question, SAT is just $\exists$ an assignment $z$ that satisfies the boolean formula. In general for a language $L$ $\in$ $coNP^{SAT}$, $\forall$ configuration $y$, $\exists$ an assignment $z$, V(x,y,z) = 1. So $\Pi_{2}^{P}$ = $coNP^{SAT}$.
 \end{document}
