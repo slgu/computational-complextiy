@@ -1,0 +1,32 @@
+\documentclass[11pt]{article}
+\usepackage{enumerate}
+\usepackage[T1]{fontenc}
+\usepackage[top=1in, bottom=1in, left=1.25in, right=1.25in]{geometry}
+\usepackage{graphicx}
+\newcommand{\itab}[1]{\hspace{0em}\rlap{#1}}
+\newcommand{\tab}[1]{\hspace{1em}\rlap{#1}}
+\title{Homework 4 and 5 for Intro to Computational Complextiy}
+\author{Shenlong Gu}
+\date{917-544-8927, sg3301@columbia.edu, 25, Nov 2015}
+\begin{document}
+\maketitle
+\part{}
+Let's assume NP $\subseteq$ BPP. We will prove SAT which is a NP-Complete problem $\in$ RP to solve this problem. We know we have a BPP machine to decide language in some probability. First we can know given a string $x$, with length $n$, we can run BPP machine several times and use the major vote and judge if $l$ is $\in$ $SAT$ with $p$ = $\frac{1}{2 * n}$. And we can use this property to construct a RP machine to decide $SAT$. Let m-BPP to be the modified BPP (running input $l$ serveral times $r(n)$ (poly-nomial with input length $n$ to get the answer) \\
+First, we use m-BPP to judge if $l$ belongs to SAT, if no, rej. Then use m-BPP to judge if set $x_{0}$ to be 0 and if $l^{'}$ belongs to SAT, if no, we set $x_{0}$ to be 1 and continue to set $x_{1}, x_{2}, ...x{n}$. Finally, we got an assignment for each $x_{i}$, we judge if this assignment satisfied $l$, if yes, accept, if no, rej. \\ 
+It is easy to see, if the $l$ $\notin$ SAT, we won't get a satisfiable assignment and this machine will always rej. If $l$ $\in$ SAT, we can calculate the possiblity, for n steps that m-BPP makes the wrong decision. The probability m-BPP making some wrong decision in total is at most $n$ * $\frac{1}{2 * n}$ = $\frac{1}{2}$. So we prove SAT $\in$ RP. so NP $\subseteq$ RP. And we know that RP $\subseteq$ NP, so NP = RP.
+\part{}
+First, it is easy to show Oracle \#P is more powerful than Oracle PP, because if we know the count of all accepting path for a NTM, it is easy to calculate $Pr[D(x,y)]$ and is easy to judge whether to accept or reject the input. So $P^{PP}$ $\subseteq$ $P^{\#P}$, now we will prove another side, $P^{\#P}$ $\subseteq$ $P^{PP}$. 
+
+\part{}
+Because we know $\xi_{2}$ is larger than $\xi_{1}$, we just use Chernoff bound for the middle point $\frac{\xi_{1} + \xi_{2}}{2}$.
+We will run a random turning machine for D for $n$ times, and compare the total sum of the result to $\frac{\xi_{1} + \xi_{2}}{2}$ * $n$. if the total sum is larger than it, we accept, otherwise we will reject. We will use two useful forms of Chernoff bound to prove this. \\
+Given $n$ independent random varibles, $x_{1}$..$x_{n}$ between [0, 1], let $X$ to be the sum of them and $u$ to be the expected value of $X$. \\
+Pr(X $\leq$ (1 - $\sigma$) * $u$) $\leq$ $e^{\frac{-\sigma^{2}*u}{2}}$ \\
+Pr(X $\geq$ (1 + $\sigma$) * $u$) $\leq$ $e^{\frac{-\sigma^{2}*u}{3}}$ \\
+We will find that regardless of how many times we run this randomized algorithm, the $\sigma$ for these two formulas won't change. For the first prove, we set $\sigma$ to be $\frac{\xi_{2} - \xi_{1}}{2*\xi_{2}}$, and for the second prove, we set $\sigma$ to be $\frac{\xi_{2} - \xi_{1}}{2*\xi_{1}}$. And we can just adjust the $n$ to run the randomized algorithms for many times, and make $e^{\frac{-\sigma^{2}*u}{2}}$ and $e^{\frac{-\sigma^{2}*u}{3}}$ to be less than $\frac{1}{3}$. So we have proved that $L$ belongs to BPP.
+
+\part{}
+
+\part{}
+
+\end{document}
