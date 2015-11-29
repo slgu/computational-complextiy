@@ -41,7 +41,13 @@ So we have proved that Given PSPACE $\subseteq$ P/poly, PSPACE = $\Sigma_{2}$
 From calculating number of perfect matching in the bipartite graph, we know 0-1 permanent of matrix counting problem is \#P-complete.
 \part{}
 Assume size of S is $n$. \\
-From the problem, we know H(s) != t means there is a t for every s, H(s) != t, because h is from an universal hash family, so given a specific t, 
+From the problem, we know H(s) != t means there is a t for every s, H(s) != t. First, let assume $n_{t}$ to be the number of values in $S$ that make H(s) = t. So First let's calculate Pr($n_{t}$ = 0) given a $t$. First, because $h$ is randomizedly chosen from the universal hash family. So E($n_{t}$) = $\frac{n}{2^{m}}$. Then let's calculate Var($n_{t}$). From the definition, Var($n_{t}$) = E($n_{t}*n_{t}$) - $E(n_{t})^{2}$. Let assume $x_{i}$ = 1 if H($s_{i}$) = t, otherwise $x_{i}$ = 0. \\
+So E($n_{t}*n_{t}$) = E($(x_{1} + x_{2} + ... + x_{n})^{2}$), and because universal hash family (as taught in the class) is pairwise-independent, E($(x_{1} + x{2} + ... + x_{n})^{2}$) = n * $\frac{1}{2^{m}}$ + n * (n - 1) * $\frac{1}{2^{2*m}}$. So Var($n_{t}$) = n * $\frac{1}{2^{m}}$ + n * (n - 1) * $\frac{1}{2^{2*m}}$ - $\frac{n * n}{2^{2 * m}}$ = n * ($\frac{1}{2^{m}}$ - $\frac{1}{2^(2*m)}$). \\ 
+So we can apply the ChebyShev Inequality, Pr($n_{t}$ = 0) $\leq$ Pr(|$n_{t}$ - $\frac{n}{2^{m}}$| $\geq$ $\frac{n}{2^{m}}$) $\leq$ = $\frac{n * (\frac{1}{2^{m}} - \frac{1}{2^{2*m}})}{\frac{n^{2}}{2^{2*m}}}$ $\leq$ $\frac{2^{m}}{n}$. \\
+
+So Pr(H(S) != t) = Pr($n_{t_{1}}$ = 0 | $n_{t_{2}}$ = 0 |...| $n_{t_{2^{m}}}$ = 0) $\leq$ $2^{m}$ * $\frac{2^{m}}{n}$ = $\frac{2^{2*m}}{n}$ $\leq$ $\frac{2^{2*m+1}}{n}$
+
+
 \part{}
 We can use the similar approach to give a randomized algorithm to approximate \#$\phi$ as told in class. Assume $2^{k}$ $\leq$ |S| $\leq$ $2^{k+1}$. We just want to get the $k$ to use $2^{k+1}$ to approximate the answer. We consider a problem, given a set $T$ $\{0,1\}^{m}$, we randomly select $r$ hash function $h_{i}$ from the universal hash family. Consider a decision problem, if one of these hash functions make h(S) = T. We can draw a chart, size of $T$ from 0 to $m$. It is easy to show, when $m$ is too small, we use the inequality of question 2, when 
 $\frac{2^{2m+1}}{|S|}$ is less than $\frac{1}{2}$, use a larger $r$ almost the decision problem provided will return false, and as $r$ get larger, the decision problem provided will return true for some probability because we randomly select hash function $h_{1}...h_{r}$, and we can similarly use SAT-Oracle to solve this decision problem, and consider the use this decision problem, if $m$ is set to be $\geq$ $k+1$, we can not get:  h(S) = T, and use $2*m+1$ $\leq$ $k-1$, we can know the probability Pr(H(S) = T) $\geq$ 1 - $\frac{2^{2m+1}}{|S|}$ $\geq$ $\frac{1}{2}$. So pr that one of the hash function satisfiy H(S) = T is $\geq$ 1 - $\frac{1}{2^{r}}$, almost 1. \\
